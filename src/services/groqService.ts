@@ -1,7 +1,7 @@
-// src/services/groqService.ts
+// src/services/groqService.ts - Updated with better environment checking
 import Groq from "groq-sdk";
 
-// Security: Check if current origin is allowed
+// Enhanced security check with better debugging
 function validateOrigin(): boolean {
   if (typeof window === "undefined") return true; // SSR
 
@@ -10,7 +10,11 @@ function validateOrigin(): boolean {
   ];
   const currentHost = window.location.host;
 
-  console.log("🔐 Security Check:", { currentHost, allowedOrigins });
+  console.log("🔐 Security Check:", {
+    currentHost,
+    allowedOrigins,
+    environment: import.meta.env.MODE,
+  });
 
   // Check if current host is in allowed list
   const isAllowed = allowedOrigins.some(
@@ -26,19 +30,49 @@ function validateOrigin(): boolean {
   return true;
 }
 
-// Initialize Groq client
+// Enhanced Groq client initialization with detailed debugging
 function createGroqClient(): Groq {
+  // Debug environment variables
+  console.log("🔍 Environment Debug:");
+  console.log("- Mode:", import.meta.env.MODE);
+  console.log("- Is Production:", import.meta.env.PROD);
+  console.log("- Is Development:", import.meta.env.DEV);
+
   const apiKey = import.meta.env.VITE_GROQ_API_KEY;
 
+  console.log("🔑 API Key Check:");
+  console.log("- API Key exists:", !!apiKey);
+  console.log("- API Key length:", apiKey?.length || 0);
+  console.log(
+    "- API Key preview:",
+    apiKey ? `${apiKey.substring(0, 8)}...` : "Not found"
+  );
+
   if (!apiKey) {
+    const errorMsg = `
+❌ Groq API key not found!
+
+In Netlify Dashboard:
+1. Go to Site Settings → Environment Variables
+2. Add: VITE_GROQ_API_KEY = gsk_your_key_here
+3. Trigger new deployment
+
+Current environment: ${import.meta.env.MODE}
+Expected variable: VITE_GROQ_API_KEY
+    `.trim();
+
+    console.error(errorMsg);
     throw new Error(
-      "Groq API key not found. Please set VITE_GROQ_API_KEY in your environment."
+      "Groq API key not found. Check Netlify environment variables."
     );
   }
 
   if (!apiKey.startsWith("gsk_")) {
+    console.error('❌ Invalid API key format. Expected to start with "gsk_"');
     throw new Error('Invalid Groq API key format. Should start with "gsk_"');
   }
+
+  console.log("✅ Groq API key validated successfully");
 
   return new Groq({
     apiKey: apiKey,
@@ -82,37 +116,32 @@ export interface ColorInput {
 export async function generateThemeFromColors(
   colors: ColorInput
 ): Promise<ThemeDescription[]> {
-  // Security check
-  validateOrigin();
+  try {
+    // Security and environment checks
+    validateOrigin();
+    const groq = createGroqClient();
 
-  const groq = createGroqClient();
+    console.log("🚀 Calling Groq API for color generation...");
+    console.log("Input colors:", colors);
 
-  const prompt = `As an expert UI/UX designer and color theorist, analyze the provided colors and generate 3 intelligent color theme variations.
+    const prompt = `As an expert UI/UX designer and color theorist, analyze the provided colors and generate 3 intelligent color theme variations.
 
 User provided colors:
 - Primary: ${colors.primary}
 - Secondary: ${colors.secondary || "NOT PROVIDED (you choose the best one)"}
 - Accent: ${colors.accent || "NOT PROVIDED (you choose the best one)"}
 
-Your task:
-1. Analyze the provided color(s) for mood, saturation, brightness, and color temperature
-2. For missing colors (secondary/accent), intelligently suggest the BEST complementary colors using color theory
-3. Generate 3 distinct theme variations with different moods/styles
-4. Ensure WCAG AA compliance for all text/background combinations
-5. Create meaningful, descriptive names that reflect the color palette and mood
-
 Requirements:
+- Generate exactly 3 unique themes with different moods
 - Each theme must have both light and dark modes
-- Use the provided primary color as the base for all themes
-- If secondary/accent colors are missing, choose colors that create beautiful, professional color schemes
-- Consider color harmony principles (complementary, triadic, analogous, etc.)
-- Names should be creative and descriptive (e.g., "Ocean Breeze Professional", "Sunset Creative", "Forest Minimal")
+- Ensure WCAG AA compliance
+- Create descriptive names
 
-Return ONLY a valid JSON response in this exact format (no other text):
+Return ONLY valid JSON in this format:
 {
   "themes": [
     {
-      "name": "Descriptive Theme Name",
+      "name": "Theme Name",
       "light": {
         "primary": "#hexcolor",
         "secondary": "#hexcolor", 
@@ -139,15 +168,12 @@ Return ONLY a valid JSON response in this exact format (no other text):
   ]
 }`;
 
-  try {
-    console.log("🚀 Calling Groq API from frontend for color generation...");
-
     const response = await groq.chat.completions.create({
       messages: [
         {
           role: "system",
           content:
-            "You are an expert UI/UX designer and color theorist. Generate beautiful, accessible color themes with intelligent color suggestions. Always respond with valid JSON only, no other text.",
+            "You are an expert UI/UX designer. Generate beautiful, accessible color themes. Always respond with valid JSON only.",
         },
         {
           role: "user",
@@ -190,7 +216,7 @@ Return ONLY a valid JSON response in this exact format (no other text):
         throw new Error("This domain is not authorized to use the API");
       } else if (error.message.includes("API key")) {
         throw new Error(
-          "API configuration error. Please check your Groq API key."
+          "API configuration error. Check Netlify environment variables."
         );
       } else if (error.message.includes("JSON")) {
         throw new Error("Failed to parse AI response. Please try again.");
@@ -198,7 +224,7 @@ Return ONLY a valid JSON response in this exact format (no other text):
     }
 
     throw new Error(
-      `Failed to generate themes from colors: ${
+      `Failed to generate themes: ${
         error instanceof Error ? error.message : String(error)
       }`
     );
@@ -209,29 +235,21 @@ Return ONLY a valid JSON response in this exact format (no other text):
 export async function generateThemeFromDescription(
   description: string
 ): Promise<ThemeDescription[]> {
-  // Security check
-  validateOrigin();
+  try {
+    // Security and environment checks
+    validateOrigin();
+    const groq = createGroqClient();
 
-  const groq = createGroqClient();
+    console.log("🚀 Calling Groq API for description generation...");
+    console.log("Description:", description);
 
-  const prompt = `Based on the following description, generate 3 distinct color themes with meaningful names.
+    const prompt = `Based on this description, generate 3 distinct color themes: "${description}"
 
-Description: "${description}"
-
-Requirements:
-- Generate exactly 3 unique themes with different moods and personalities
-- Each theme must have a descriptive name that reflects the description
-- Include both light and dark mode colors
-- Ensure WCAG AA contrast compliance for text/background combinations
-- Colors should be in hex format
-- Consider the mood, style, and context from the description
-- Make themes visually distinct from each other
-
-Return ONLY a valid JSON response in this exact format (no other text):
+Return ONLY valid JSON in this format:
 {
   "themes": [
     {
-      "name": "Theme Name Based On Description",
+      "name": "Theme Name",
       "light": {
         "primary": "#hexcolor",
         "secondary": "#hexcolor", 
@@ -258,17 +276,12 @@ Return ONLY a valid JSON response in this exact format (no other text):
   ]
 }`;
 
-  try {
-    console.log(
-      "🚀 Calling Groq API from frontend for description generation..."
-    );
-
     const response = await groq.chat.completions.create({
       messages: [
         {
           role: "system",
           content:
-            "You are an expert UI/UX designer and color theorist. Generate beautiful, accessible color themes based on user descriptions. Always respond with valid JSON only, no other text.",
+            "You are an expert UI/UX designer. Generate beautiful, accessible color themes based on descriptions. Always respond with valid JSON only.",
         },
         {
           role: "user",
@@ -310,7 +323,7 @@ Return ONLY a valid JSON response in this exact format (no other text):
         throw new Error("This domain is not authorized to use the API");
       } else if (error.message.includes("API key")) {
         throw new Error(
-          "API configuration error. Please check your Groq API key."
+          "API configuration error. Check Netlify environment variables."
         );
       } else if (error.message.includes("JSON")) {
         throw new Error("Failed to parse AI response. Please try again.");
@@ -318,7 +331,7 @@ Return ONLY a valid JSON response in this exact format (no other text):
     }
 
     throw new Error(
-      `Failed to generate themes from description: ${
+      `Failed to generate themes: ${
         error instanceof Error ? error.message : String(error)
       }`
     );
@@ -331,18 +344,26 @@ export async function testGroqConnection(): Promise<boolean> {
     validateOrigin();
     const groq = createGroqClient();
 
+    console.log("🧪 Testing Groq connection...");
+
     const response = await groq.chat.completions.create({
       messages: [
         {
           role: "user",
-          content: "Hello, respond with just 'OK' to test the connection.",
+          content: "Respond with just 'OK' to test the connection.",
         },
       ],
       model: "llama-3.1-8b-instant",
       max_tokens: 10,
     });
 
-    return !!response.choices[0].message.content;
+    const success = !!response.choices[0].message.content;
+    console.log(
+      success
+        ? "✅ Groq connection test passed"
+        : "❌ Groq connection test failed"
+    );
+    return success;
   } catch (error) {
     console.error("❌ Groq connection test failed:", error);
     return false;
