@@ -235,15 +235,15 @@ export default function Home() {
           <div className="flex items-center justify-center space-x-4 text-sm text-muted-foreground">
             <span className="flex items-center">
               <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-              No Backend Required
+              Free To use{" "}
             </span>
             <span className="flex items-center">
               <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
-              Direct Groq AI Integration
+              Groq AI Powered theme Generation
             </span>
             <span className="flex items-center">
               <span className="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
-              Secure & Fast
+              Export with ease
             </span>
           </div>
         </div>
