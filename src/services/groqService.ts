@@ -1,12 +1,15 @@
-// src/services/groqService.ts - Updated with better environment checking
+// src/services/groqService.ts - Updated with direct allowed origins
+
 import Groq from "groq-sdk";
 
 // Enhanced security check with better debugging
 function validateOrigin(): boolean {
   if (typeof window === "undefined") return true; // SSR
 
-  const allowedOrigins = import.meta.env.VITE_ALLOWED_ORIGINS?.split(",") || [
+  // Added directly here without needing environment variables
+  const allowedOrigins = [
     "localhost:3000",
+    "elaborate-sunflower-c1e195.netlify.app", // Added the allowed origin directly
   ];
   const currentHost = window.location.host;
 
