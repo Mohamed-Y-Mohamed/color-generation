@@ -6,28 +6,27 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(import.meta.dirname, "client", "src"),
-      "@shared": path.resolve(import.meta.dirname, "shared"),
-      "@assets": path.resolve(import.meta.dirname, "attached_assets"),
+      "@": path.resolve(__dirname, "src"),
+      "@shared": path.resolve(__dirname, "shared"),
+      "@/components": path.resolve(__dirname, "src/components"),
+      "@/hooks": path.resolve(__dirname, "src/hooks"),
+      "@/lib": path.resolve(__dirname, "src/lib"),
+      "@/services": path.resolve(__dirname, "src/services"),
+      "@/pages": path.resolve(__dirname, "src/pages"),
     },
-  },
-  root: path.resolve(import.meta.dirname, "client"),
-  build: {
-    outDir: path.resolve(import.meta.dirname, "dist/public"),
-    emptyOutDir: true,
   },
   server: {
     port: 3000,
-    proxy: {
-      "/api": {
-        target: "http://localhost:5173", // 👈 YOUR BACKEND PORT HERE
-        changeOrigin: true,
-        secure: false,
-      },
-    },
-    fs: {
-      strict: true,
-      deny: ["**/.*"],
-    },
+    host: true, // Allow access from network
+  },
+  build: {
+    outDir: "dist",
+    emptyOutDir: true,
+  },
+  // Make sure environment variables are available
+  define: {
+    "process.env.NODE_ENV": JSON.stringify(
+      process.env.NODE_ENV || "development"
+    ),
   },
 });
