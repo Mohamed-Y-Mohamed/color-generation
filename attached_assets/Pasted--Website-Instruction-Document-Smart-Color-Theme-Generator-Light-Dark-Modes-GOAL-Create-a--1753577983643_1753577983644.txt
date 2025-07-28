@@ -1,0 +1,150 @@
+📘 Website Instruction Document: Smart Color Theme Generator (Light & Dark Modes)
+🔧 GOAL:
+Create a website tool that lets users generate complete website color themes (light and dark versions) based on:
+
+A preferred color (or colors)
+
+An uploaded image
+
+A short description or phrase
+
+The tool should return ready-to-use color themes, including text and background colors, accent colors, and optional secondary backgrounds. It should also make everything easy to understand for both designers and developers.
+
+🧩 1. USER INPUT OPTIONS
+Users can choose one of three ways to tell the system what they want:
+
+🟡 A. Pick Colors
+The user manually selects one or more base colors.
+
+These guide the overall theme.
+
+🟢 B. Upload an Image
+System detects important colors from the image.
+
+It pulls dominant, secondary, and background-friendly colors.
+
+🔵 C. Enter a Description
+Example:
+
+"A clean, warm color scheme for a lifestyle blog"
+
+The system uses AI to understand tone, style, mood, and generate a matching theme.
+
+🎨 2. THEME GENERATION LOGIC
+For each input, the system will create 3 full color themes, each with both:
+
+A light mode version
+
+A dark mode version
+
+Each theme will contain clearly labeled color roles.
+
+🧾 3. COLOR ROLES & WHAT THEY MEAN
+Color Role	Description (User-Friendly)
+✅ Primary Color	The main color for your brand or key areas (e.g., buttons).
+✅ Secondary Color	A supportive color used with or near the primary (optional).
+✅ Accent Color	A “pop” color for highlights (like links, icons, hover effects).
+✅ Background Color	The main page or section background.
+✅ Text Color	The default readable color for titles and body text.
+✅ Secondary Background	Optional — for layouts with a second background (like a sidebar).
+✅ Border / Divider	Used for outlines, separators, or subtle UI elements.
+✅ Shadow / Overlay	Optional shades for depth or layering in design.
+
+All of these will be auto-generated and clearly shown with:
+
+Color swatches
+
+Hex codes
+
+Copy buttons
+
+Export all colors (JSON/CSS)
+
+🌗 4. LIGHT & DARK MODE LOGIC
+Every theme has both Light and Dark variants.
+
+Users can toggle a “Light/Dark Mode” button.
+
+Optional toggle for:
+
+Dual Backgrounds — lets the system generate two background layers (for layouts with a main section and sidebar).
+
+➕ Extra Customization:
+Add a checkbox or switch:
+
+“Generate dual light/dark backgrounds”
+
+If selected, the system will include:
+
+Light Background 1 and 2
+
+Dark Background 1 and 2
+
+🖥️ 5. OUTPUT DESIGN – THEME PREVIEW
+Show 3 themes side-by-side, each with:
+
+A preview card simulating how the theme would look on a website (header, text, button).
+
+All color roles displayed with swatches and copy buttons.
+
+Download/export theme (CSS/JSON).
+
+A “Generate New Themes” button.
+
+📋 Example Layout:
+less
+Copy
+Edit
++---------------------------------------------------------------------+
+| Choose: 🎨 Pick Color  | 🖼️ Upload Image | ✏️ Describe Theme         |
++---------------------------------------------------------------------+
+|                            🎨 Theme Suggestions                     |
++-------------+--------------------+-------------------------------+
+| Theme 1     | Theme 2            | Theme 3                       |
+|-------------|--------------------|-------------------------------|
+| Primary: #3a6 | Primary: #005     | Primary: #dd4                 |
+| Accent:  #f90 | Accent:  #baf     | Accent:  #7a0                 |
+| Background 1 | Background 1      | Background 1                  |
+|   Light: #fff|   Light: #f5f5f5  |   Light: #fcfcfc              |
+|   Dark:  #121|   Dark:  #1c1c1c  |   Dark:  #000                 |
+| Background 2 (if selected):                                     |
+|   Light: #eee|   Light: #dcdcdc  |   Light: #eaeaea              |
+|   Dark:  #222|   Dark:  #2b2b2b  |   Dark:  #111                 |
+| Text: #000   | Text: #111        | Text: #fff                    |
+| Copy All     | Copy All          | Copy All                      |
+| Export       | Export            | Export                        |
++-------------+--------------------+-------------------------------+
+| [🔘 Toggle Dark/Light Mode] [☑️ Dual Backgrounds]                |
++---------------------------------------------------------------------+
+🛠️ 6. TECHNICAL FEATURES (FOR DEVELOPERS)
+Use color extraction tools (e.g., k-means clustering) to get palette from image.
+
+NLP model or keyword-matching logic for description input → tone/theme mapping.
+
+Theme generation based on contrast ratio (e.g., WCAG guidelines) for text readability.
+
+Export formats:
+
+JSON: { "primary": "#3a6", "background_light": "#fff", ... }
+
+CSS variables:
+
+css
+Copy
+Edit
+:root {
+  --primary-color: #3a6;
+  --bg-light: #fff;
+  --text-dark: #000;
+}
+✅ Final Checklist
+Feature	Status
+Color Picker	✅
+Image Upload + Color Extraction	✅
+Text Prompt → Theme Matching	✅
+Light & Dark Mode Versions	✅
+Optional Dual Backgrounds	✅
+User-Friendly Language + Labels	✅
+Export/Copy Options	✅
+Swatches + Theme Previews	✅
+No Login Required	✅
