@@ -9,7 +9,7 @@ function validateOrigin(): boolean {
   // Added directly here without needing environment variables
   const allowedOrigins = [
     "localhost:3000",
-    "elaborate-sunflower-c1e195.netlify.app", // Added the allowed origin directly
+    "https://smart-color-generator.netlify.app/", // Added the allowed origin directly
   ];
   const currentHost = window.location.host;
 
