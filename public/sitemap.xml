@@ -7,9 +7,69 @@
     <!-- Homepage -->
     <url>
         <loc>https://smart-color-generator.netlify.app/</loc>
-        <lastmod>2025-08-06</lastmod>
+        <lastmod>2025-12-13</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
+    </url>
+    
+    <!-- Blog Main Page -->
+    <url>
+        <loc>https://smart-color-generator.netlify.app/blog</loc>
+        <lastmod>2025-12-13</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Blog Posts -->
+    <url>
+        <loc>https://smart-color-generator.netlify.app/blog/color-theory-basics</loc>
+        <lastmod>2025-12-10</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://smart-color-generator.netlify.app/blog/wcag-accessibility</loc>
+        <lastmod>2025-12-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://smart-color-generator.netlify.app/blog/dark-mode-design</loc>
+        <lastmod>2025-12-05</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://smart-color-generator.netlify.app/blog/color-psychology</loc>
+        <lastmod>2025-12-03</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://smart-color-generator.netlify.app/blog/brand-colors</loc>
+        <lastmod>2025-11-30</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- About Page -->
+    <url>
+        <loc>https://smart-color-generator.netlify.app/about</loc>
+        <lastmod>2025-12-13</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <!-- Privacy Policy -->
+    <url>
+        <loc>https://smart-color-generator.netlify.app/privacy-policy</loc>
+        <lastmod>2025-12-13</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
     </url>
     
 </urlset>

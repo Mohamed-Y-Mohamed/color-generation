@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Button } from "../components/ui/button";
-import { Palette, Moon, Sun, Download, Trash2 } from "lucide-react";
+import { Palette, Moon, Sun, Download, Trash2, BookOpen } from "lucide-react";
 import { useTheme } from "../components/ThemeProvider";
+import { Navbar } from "../components/Navbar";
+import { Footer } from "../components/Footer";
 import { InputMethodTabs } from "../components/InputMethodTabs";
 import { ThemeResults } from "../components/ThemeResults";
 import { LivePreview } from "../components/LivePreview";
@@ -15,9 +17,11 @@ import {
 } from "../hooks/use-themes";
 import { useToast } from "../hooks/use-toast";
 import { Theme } from "../../shared/schema";
+import { useLocation } from "wouter";
 export default function Home() {
   const { theme, toggleTheme } = useTheme();
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const [selectedTheme, setSelectedTheme] = useState<Theme | undefined>();
 
   // Hooks for theme operations
@@ -165,62 +169,14 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
-      {/* Header */}
-      <header className="bg-card shadow-sm border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-lg flex items-center justify-center">
-                <Palette className="w-4 h-4 text-white" />
-              </div>
-              <h1 className="text-xl font-bold">Smart Color Theme Generator</h1>
-              <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
-                Frontend-Only
-              </span>
-            </div>
-            <div className="flex items-center space-x-4">
-              {/* Theme actions */}
-              {themes.length > 0 && (
-                <div className="flex items-center space-x-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={handleExportAll}
-                    disabled={exportThemes.isPending}
-                    className="text-xs"
-                  >
-                    <Download className="w-3 h-3 mr-1" />
-                    Export
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={handleClearAll}
-                    disabled={clearThemes.isPending}
-                    className="text-xs text-red-600 hover:text-red-700"
-                  >
-                    <Trash2 className="w-3 h-3 mr-1" />
-                    Clear
-                  </Button>
-                </div>
-              )}
-
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={toggleTheme}
-                className="p-2"
-              >
-                {theme === "dark" ? (
-                  <Sun className="w-4 h-4" />
-                ) : (
-                  <Moon className="w-4 h-4" />
-                )}
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Navbar
+        showThemeActions={true}
+        themesCount={themes.length}
+        onExport={handleExportAll}
+        onClear={handleClearAll}
+        isExporting={exportThemes.isPending}
+        isClearing={clearThemes.isPending}
+      />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Hero Section */}
@@ -316,6 +272,8 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      <Footer />
     </div>
   );
 }
