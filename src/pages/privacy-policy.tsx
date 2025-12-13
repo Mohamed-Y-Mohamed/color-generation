@@ -105,6 +105,42 @@ export default function PrivacyPolicy() {
               and preferences locally on your device. This data never leaves
               your browser and is not transmitted to our servers.
             </p>
+            <p className="mt-2 font-semibold text-amber-600 dark:text-amber-400">
+              Important: You are solely responsible for managing and backing up
+              data stored in your browser's local storage. We are not
+              responsible for any loss of locally stored data, including but not
+              limited to browser cache clearing, browser updates, or device
+              changes.
+            </p>
+          </Card>
+
+          <Card className="p-6 bg-amber-50 dark:bg-amber-950 border-amber-200 dark:border-amber-800">
+            <h2 className="text-2xl font-bold mb-4">Data Storage Disclaimer</h2>
+            <p className="font-semibold mb-4">
+              PLEASE READ THIS SECTION CAREFULLY
+            </p>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>
+                All color themes and user-generated content are stored
+                exclusively in your browser's local storage.
+              </li>
+              <li>
+                We do not maintain backups of your locally stored data on our
+                servers.
+              </li>
+              <li>
+                You are responsible for exporting and saving any themes you wish
+                to keep permanently.
+              </li>
+              <li>
+                Clearing your browser data, switching browsers, or using
+                incognito/private mode will result in loss of stored themes.
+              </li>
+              <li>
+                We bear no responsibility for data loss due to browser issues,
+                updates, or user actions.
+              </li>
+            </ul>
           </Card>
 
           <Card className="p-6">
