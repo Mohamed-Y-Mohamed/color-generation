@@ -37,13 +37,6 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/resources">
-                  <a className="text-muted-foreground hover:text-primary transition-colors">
-                    Resources & Tutorials
-                  </a>
-                </Link>
-              </li>
-              <li>
                 <Link href="/faq">
                   <a className="text-muted-foreground hover:text-primary transition-colors">
                     FAQ
