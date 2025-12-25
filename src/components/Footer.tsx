@@ -37,6 +37,20 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/resources">
+                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                    Resources & Tutorials
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/faq">
+                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                    FAQ
+                  </a>
+                </Link>
+              </li>
+              <li>
                 <Link href="/about">
                   <a className="text-muted-foreground hover:text-primary transition-colors">
                     About Us
@@ -65,12 +79,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <a
-                  href="mailto:support@smart-color-generator.com"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  Contact Us
-                </a>
+                <Link href="/contact">
+                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                    Contact Us
+                  </a>
+                </Link>
               </li>
             </ul>
           </div>
