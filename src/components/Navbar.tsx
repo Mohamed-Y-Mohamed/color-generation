@@ -8,6 +8,8 @@ import {
   BookOpen,
   Home,
   Info,
+  HelpCircle,
+  Book,
 } from "lucide-react";
 import { useLocation } from "wouter";
 import { useTheme } from "./ThemeProvider";
@@ -99,6 +101,26 @@ export function Navbar({
               >
                 <BookOpen className="w-4 h-4 mr-2" />
                 Blog
+              </Button>
+
+              <Button
+                variant={isActive("/resources") ? "default" : "ghost"}
+                size="sm"
+                onClick={() => setLocation("/resources")}
+                className={isActive("/resources") ? "font-semibold" : ""}
+              >
+                <Book className="w-4 h-4 mr-2" />
+                Resources
+              </Button>
+
+              <Button
+                variant={isActive("/faq") ? "default" : "ghost"}
+                size="sm"
+                onClick={() => setLocation("/faq")}
+                className={isActive("/faq") ? "font-semibold" : ""}
+              >
+                <HelpCircle className="w-4 h-4 mr-2" />
+                FAQ
               </Button>
 
               <Button
