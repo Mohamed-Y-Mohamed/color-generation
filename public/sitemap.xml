@@ -59,14 +59,38 @@
     <!-- About Page -->
     <url>
         <loc>https://smart-color-generator.netlify.app/about</loc>
-        <lastmod>2025-12-13</lastmod>
+        <lastmod>2025-12-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
+    </url>
+  <url>
+    <loc>https://smart-color-generator.netlify.app/contact</loc>
+    <lastmod>2025-12-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- Resources Page -->
+    <url>
+        <loc>https://smart-color-generator.netlify.app/resources</loc>
+        <lastmod>2025-12-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
     </url>
     
     <!-- Privacy Policy -->
     <url>
         <loc>https://smart-color-generator.netlify.app/privacy-policy</loc>
+        <lastmod>2025-12-13</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    
+    <!-- Terms of Service -->
+    <url>
+        <loc>https://smart-color-generator.netlify.app/terms-of-service</loc>
         <lastmod>2025-12-13</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
